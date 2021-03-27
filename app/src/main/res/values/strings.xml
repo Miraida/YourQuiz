@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">YourQuiz</string>
+    <string name="start">start</string>
+    <string name="reviews">reviews</string>
+    <string name="exit">exit</string>
 </resources>

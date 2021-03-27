@@ -4,11 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-    private Button btnStart,btnReviews,btnExit;
+    private Button btnStart;
+    private Button btnReviews;
+    private Button btnExit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,29 +25,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initClickers() {
-        btnStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,LevelActivity.class);
-                intent.putExtra("key1","Level 1");
-                intent.putExtra("key2","Level 2");
-                intent.putExtra("key3","Level 3");
-                startActivity(intent);
-            }
+        btnStart.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this,LevelActivity.class);
+            intent.putExtra("key1","Level 1");
+            intent.putExtra("key2","Level 2");
+            intent.putExtra("key3","Level 3");
+            startActivity(intent);
         });
-        btnReviews.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnReviews.setOnClickListener(v -> {
 
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "Hey, rate my app!");
-                sendIntent.setType("text/plain");
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "Hey, rate my app!");
+            sendIntent.setType("text/plain");
 
-                Intent shareIntent = Intent.createChooser(sendIntent, null);
-                startActivity(shareIntent);
-            }
+            Intent shareIntent = Intent.createChooser(sendIntent, null);
+            startActivity(shareIntent);
         });
+
+        btnExit.setOnClickListener(v -> finish());
 
     }
 

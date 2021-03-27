@@ -4,11 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class LevelActivity extends AppCompatActivity {
      private String firstLevel,secondLevel,thirdLevel;
@@ -48,28 +44,19 @@ public class LevelActivity extends AppCompatActivity {
 
     private void sendQuestions() {
         Intent intent  = new Intent(LevelActivity.this,GameActivity.class);
-        btnLevel1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent.putExtra("firstKey", new QuestionModel(firstLevel,"Which method initiate the fragment?",
-                        "OnViewCreate()","OnCreate()","OnCreateView()","OnAttach()"));
-                startActivity(intent); }
-        });
+        btnLevel1.setOnClickListener(v -> {
+            intent.putExtra("firstKey", new QuestionModel(firstLevel,"Which method initiate the fragment?",
+                    "OnViewCreate()","OnCreate()","OnCreateView()","OnAttach()"));
+            startActivity(intent); });
 
-        btnLevel2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent.putExtra("firstKey", new QuestionModel(secondLevel,"What Android resource directory do we use store our .xml layout file for tablets?",
-                        "Layout","Layout-large","Layout-tablet","The name does not matter"));
-                startActivity(intent); }
-        });
-        btnLevel3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent.putExtra("firstKey", new QuestionModel(thirdLevel,"What does FCM stand for?",
-                        "Firebase Cloud Messaging","FireBase Cloud Manager","FireBase Cloud Mediator","None of the Above"));
-                startActivity(intent); }
-        });
+        btnLevel2.setOnClickListener(v -> {
+            intent.putExtra("firstKey", new QuestionModel(secondLevel,"What Android resource directory do we use store our .xml layout file for tablets?",
+                    "Layout","Layout-large","Layout-tablet","The name does not matter"));
+            startActivity(intent); });
+        btnLevel3.setOnClickListener(v -> {
+            intent.putExtra("firstKey", new QuestionModel(thirdLevel,"What does FCM stand for?",
+                    "Firebase Cloud Messaging","FireBase Cloud Manager","FireBase Cloud Mediator","None of the Above"));
+            startActivity(intent); });
     }
 
 }
