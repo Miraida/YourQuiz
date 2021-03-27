@@ -2,9 +2,6 @@ package com.geek.yourquiz;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -45,12 +42,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         btnAnswer2.setText(model.getSecondAnswer());
         btnAnswer3.setText(model.getThirdAnswer());
         btnAnswer4.setText(model.getFourthAnswer());
-        btnAnswer1.setOnClickListener(this);
-        btnAnswer2.setOnClickListener(this);
-        btnAnswer3.setOnClickListener(this);
-        btnAnswer4.setOnClickListener(this);
+        setButtonClickListener();
     }
-
+ private void setButtonClickListener(){
+     btnAnswer1.setOnClickListener(this);
+     btnAnswer2.setOnClickListener(this);
+     btnAnswer3.setOnClickListener(this);
+     btnAnswer4.setOnClickListener(this);
+ }
 
     @Override
     public void onClick(View v) {
@@ -79,11 +78,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
       builder1.setPositiveButton(
               "Back to Levels",
-              new DialogInterface.OnClickListener() {
-                  public void onClick(DialogInterface dialog, int id) {
-                    finish();
-                  }
-              });
+              (dialog, id) -> finish());
 
 
       AlertDialog alert11 = builder1.create();
