@@ -18,8 +18,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         initViews();
         getQuestions();
     }
-
-
     private void initViews() {
         txtLevel = findViewById(R.id.level_textView);
         txtQuestion = findViewById(R.id.question_textView);
@@ -69,22 +67,28 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-  private void showDialog(String isCorrect){
-      AlertDialog.Builder builder1 = new AlertDialog.Builder(GameActivity.this);
-      builder1.setTitle(isCorrect);
-      String str = getCorrectAnswerDescription();
-      builder1.setMessage(str);
-      builder1.setCancelable(true);
 
-      builder1.setPositiveButton(
-              "Back to Levels",
-              (dialog, id) -> finish());
+    private int checkLevelCorrectAnswer() {
+        switch (model.getCurrentLevel()){
+            case "Level 1": return 3;
+            case "Level 2":  return 2;
+            case "Level 3": return 1;
+        }
+        return 0;
+    }
+    private void showDialog(String isCorrect){
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(GameActivity.this);
+        builder1.setTitle(isCorrect);
+        builder1.setMessage(getCorrectAnswerDescription());
+        builder1.setCancelable(true);
 
+        builder1.setPositiveButton(
+                "Back to Levels",
+                (dialog, id) -> finish());
 
-      AlertDialog alert11 = builder1.create();
-      alert11.show();
-  }
-
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
     private String getCorrectAnswerDescription() {
         switch (model.getCurrentLevel()){
             case "Level 1": return "You can override onCreateView() to programmatically inflate or create your fragment's view.";
@@ -95,12 +99,5 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         return "";
     }
 
-    private int checkLevelCorrectAnswer() {
-        switch (model.getCurrentLevel()){
-            case "Level 1": return 3;
-            case "Level 2":  return 2;
-            case "Level 3": return 1;
-        }
-        return 0;
-    }
+
 }

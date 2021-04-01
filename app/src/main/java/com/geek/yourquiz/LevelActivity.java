@@ -1,62 +1,54 @@
 package com.geek.yourquiz;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
+import android.util.Log;
+import java.util.ArrayList;
+import java.util.List;
 
-public class LevelActivity extends AppCompatActivity {
-     private String firstLevel,secondLevel,thirdLevel;
-     Button btnLevel1,btnLevel2,btnLevel3;
+public class LevelActivity extends AppCompatActivity implements MainAdapter.IListener {
+    private final List<String> list =  new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level);
-        getLevels();
-        initViews();
-        setLevels();
-        sendQuestions();
+        checkLevels();
+        init();
     }
 
-
-    private void getLevels() {
-        if (getIntent()!=null){
-            Intent intent = getIntent();
-            firstLevel = intent.getStringExtra("key1");
-            secondLevel = intent.getStringExtra("key2");
-            thirdLevel = intent.getStringExtra("key3");
+    private void init() {
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        MainAdapter adapter = new MainAdapter(list);
+        recyclerView.setAdapter(adapter);
+        adapter.setOnClickListener(this);
+        Log.e("TAG", "LevelActivity: adapter" );
+    }
+    private void checkLevels() {
+        Intent intent = getIntent();
+        if (intent!=null){
+            list.add(intent.getStringExtra("key1")) ;
+            list.add(intent.getStringExtra("key2")) ;
+            list.add(intent.getStringExtra("key3")) ;
         }
     }
-
-    private void initViews() {
-        btnLevel1 = findViewById(R.id.level1);
-        btnLevel2 = findViewById(R.id.level2);
-        btnLevel3 = findViewById(R.id.level3);
-
+    @Override
+    public void onItemClick(String level) {
+        Log.e("TAG", "sendQuestions: LevelActivity" );
+        Intent intent = new Intent(LevelActivity.this,GameActivity.class);
+        switch (level){
+            case "Level 1":  intent.putExtra("firstKey", new QuestionModel(level,"Which method initiate the fragment?",
+                   "OnViewCreate()","OnCreate()","OnCreateView()","OnAttach()"));
+                  break;
+            case "Level 2":      intent.putExtra("firstKey", new QuestionModel(level,"What Android resource directory do we use store our .xml layout file for tablets?",
+                   "Layout","Layout-large","Layout-tablet","The name does not matter"));
+                  break;
+            case "Level 3":     intent.putExtra("firstKey", new QuestionModel(level,"What does FCM stand for?",
+                   "Firebase Cloud Messaging","FireBase Cloud Manager","FireBase Cloud Mediator","None of the Above"));
+                  break;
+            default: break;
+        }
+        startActivity(intent);
     }
-
-    private void setLevels() {
-        btnLevel1.setText(firstLevel);
-        btnLevel2.setText(secondLevel);
-        btnLevel3.setText(thirdLevel);
-    }
-
-    private void sendQuestions() {
-        Intent intent  = new Intent(LevelActivity.this,GameActivity.class);
-        btnLevel1.setOnClickListener(v -> {
-            intent.putExtra("firstKey", new QuestionModel(firstLevel,"Which method initiate the fragment?",
-                    "OnViewCreate()","OnCreate()","OnCreateView()","OnAttach()"));
-            startActivity(intent); });
-
-        btnLevel2.setOnClickListener(v -> {
-            intent.putExtra("firstKey", new QuestionModel(secondLevel,"What Android resource directory do we use store our .xml layout file for tablets?",
-                    "Layout","Layout-large","Layout-tablet","The name does not matter"));
-            startActivity(intent); });
-        btnLevel3.setOnClickListener(v -> {
-            intent.putExtra("firstKey", new QuestionModel(thirdLevel,"What does FCM stand for?",
-                    "Firebase Cloud Messaging","FireBase Cloud Manager","FireBase Cloud Mediator","None of the Above"));
-            startActivity(intent); });
-    }
-
 }
