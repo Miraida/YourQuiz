@@ -1,4 +1,4 @@
-package com.geek.yourquiz;
+package com.geek.yourquiz.model;
 
 import java.io.Serializable;
 
